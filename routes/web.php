@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\Catalog;
+use \App\Http\Controllers\AdminController;
+use \App\Http\Controllers\CatalogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +14,8 @@ use \App\Http\Controllers\Catalog;
 |
 */
 
-Route::get('/', [Catalog::class, 'show']);
+Route::get('/', [CatalogController::class, 'index']);
+Route::get('/card/{id}', [CatalogController::class, 'card']);
+Route::get('/add-service/{id}', [CatalogController::class, 'addService']);
+Route::get('/remove-service/{id}', [CatalogController::class, 'removeService']);
+Route::get('/admin', [AdminController::class, 'index']);

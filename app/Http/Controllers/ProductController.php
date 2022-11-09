@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $products;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $products
      */
-    public function index()
+    public function __construct(Product $products)
     {
-        //
+        $this->products = $products;
     }
 
     /**
