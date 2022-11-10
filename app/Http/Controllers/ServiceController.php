@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ServiceFormRequest;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -24,62 +14,59 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('create-service');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param \Illuminate\Http\Request $request
      *
-     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function store(ServiceFormRequest $request, Service $service)
     {
-        //
+        $validated = $request->validated();
+        $service->fill($validated)->save();
+
+        return redirect('/admin')->with('success', 'Service was created');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Service $service
      */
-    public function edit(Service $service)
+    public function edit(Service $service, $id)
     {
-        //
+        return view('edit-service', [
+            'service' => $service->firstWhere('id', $id),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Service      $service
      */
-    public function update(Request $request, Service $service)
+    public function update(ServiceFormRequest $request, Service $service)
     {
-        //
+        $validated = $request->validated();
+        $service->where('id', $request->input('id'))->update($validated);
+
+        return redirect('/admin')->with('success', sprintf('Service with id: %s was updated', $request->input('id')));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Service $service
      */
-    public function destroy(Service $service)
+    public function destroy(Service $service, $id)
     {
-        //
+        $service->firstWhere('id', $id)->delete();
+
+        return back()->with('success', sprintf('Service with id: %s was deleted', $id));
     }
 }

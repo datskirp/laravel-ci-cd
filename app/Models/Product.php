@@ -10,4 +10,11 @@ class Product extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'manufacturer',
+        'release',
+        'cost',
+        'category',
+    ];
 }
