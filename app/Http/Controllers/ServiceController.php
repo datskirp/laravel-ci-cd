@@ -39,8 +39,11 @@ class ServiceController extends Controller
      */
     public function edit(Service $service, $id)
     {
+        if (!$service = $service->firstWhere('id', $id)) {
+            abort(404);
+        }
         return view('edit-service', [
-            'service' => $service->firstWhere('id', $id),
+            'service' => $service,
         ]);
     }
 
@@ -48,7 +51,8 @@ class ServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Service      $service
+     * @param \App\Models\Service $service
+     * @return \Illuminate\Http\Response
      */
     public function update(ServiceFormRequest $request, Service $service)
     {
@@ -65,7 +69,9 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service, $id)
     {
-        $service->firstWhere('id', $id)->delete();
+        if (!$service->firstWhere('id', $id)->delete()) {
+            abort(404);
+        }
 
         return back()->with('success', sprintf('Service with id: %s was deleted', $id));
     }

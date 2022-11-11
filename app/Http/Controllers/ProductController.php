@@ -39,8 +39,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product, $id)
     {
+        if (!$product = $product->firstWhere('id', $id)) {
+            abort(404);
+        }
         return view('edit-product', [
-            'product' => $product->firstWhere('id', $id),
+            'product' => $product,
         ]);
     }
 
@@ -48,7 +51,8 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Product      $product
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\Response
      */
     public function update(ProductFormRequest $request, Product $product)
     {
@@ -62,10 +66,13 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Product $product
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product, $id)
     {
-        $product->firstWhere('id', $id)->delete();
+        if (!$product->firstWhere('id', $id)->delete()) {
+            abort(404);
+        }
 
         return back()->with('success', sprintf('Product with id: %s was deleted', $id));
     }

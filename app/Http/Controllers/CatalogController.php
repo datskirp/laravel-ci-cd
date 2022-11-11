@@ -34,7 +34,9 @@ class CatalogController extends Controller
      */
     public function card(Request $request, Card $card, $id)
     {
-        $product = $this->product->firstWhere('id', $id);
+        if (!$product = $this->product->firstWhere('id', $id)) {
+            abort(404);
+        }
         $card->addProduct($product);
         $request->session()->put('card', $card);
 
@@ -51,7 +53,10 @@ class CatalogController extends Controller
     public function addService(Request $request, $serviceId)
     {
         $card = $request->session()->get('card');
-        $card->addService($this->services->firstWhere('id', $serviceId));
+        if (!$service = $this->services->firstWhere('id', $serviceId)) {
+            abort(404);
+        }
+        $card->addService($service);
 
         return view('card', [
             'card' => $card,
@@ -66,7 +71,10 @@ class CatalogController extends Controller
     public function removeService(Request $request, $serviceId)
     {
         $card = $request->session()->get('card');
-        $card->removeService($this->services->firstWhere('id', $serviceId));
+        if (!$service = $this->services->firstWhere('id', $serviceId)) {
+            abort(404);
+        }
+        $card->removeService($service);
 
         return view('card', [
             'card' => $request->session()->get('card'),
