@@ -17,9 +17,9 @@ use App\Http\Controllers\ServiceController;
 */
 
 Route::get('/', [CatalogController::class, 'index']);
-Route::get('/card/{id}', [CatalogController::class, 'card']);
-Route::get('/add-service/{id}', [CatalogController::class, 'addService']);
-Route::get('/remove-service/{id}', [CatalogController::class, 'removeService']);
+Route::get('/card/{id}', [CatalogController::class, 'card'])->name('catalog.card');
+Route::get('/add-service/{id}', [CatalogController::class, 'addService'])->name('catalog.add-service');
+Route::get('/remove-service/{id}', [CatalogController::class, 'removeService'])->name('catalog.remove-service');
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');

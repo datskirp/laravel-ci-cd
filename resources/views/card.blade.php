@@ -63,9 +63,9 @@
                                     <td class="px-3">${{$service->cost}}</td>
                                     <td class="px-3">
                                         @if(!isset($card->services[$service->id]))
-                                            <a href="/add-service/{{ $service->id }}" class="text-blue-500">add</a>
+                                            <a href="{{ route('catalog.add-service', $service->id) }}" class="text-blue-500">add</a>
                                         @else
-                                            <a href="/remove-service/{{ $service->id }}" class="text-blue-500">remove</a>
+                                            <a href="{{ route('catalog.remove-service', $service->id) }}" class="text-blue-500">remove</a>
                                         @endif
                                     </td>
                                 </tr>

@@ -30,7 +30,7 @@
                     </tr>
                     @foreach($products as $product)
                         <tr class="border border-1">
-                            <td class="border border-1 px-3 text-red-500"><a href="/card/{{$product->id}}">{{$product->name}}</a></td>
+                            <td class="border border-1 px-3 text-red-500"><a href="{{ route('catalog.card', $product->id) }}">{{$product->name}}</a></td>
                             <td class="border border-1 px-3">{{$product->manufacturer}}</td>
                             <td class="border border-1 px-3">{{$product->category}}</td>
                             <td class="border border-1 px-3">${{$product->cost}}</td>

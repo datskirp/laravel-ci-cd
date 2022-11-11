@@ -77,7 +77,7 @@ class CatalogController extends Controller
         $card->removeService($service);
 
         return view('card', [
-            'card' => $request->session()->get('card'),
+            'card' => $card,
             'services' => $this->services->where('category', $card->product->category)->get(),
         ]);
     }

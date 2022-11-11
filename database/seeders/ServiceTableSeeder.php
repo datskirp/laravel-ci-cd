@@ -15,6 +15,8 @@ class ServiceTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('services')->delete();
+
         $services = [
             [
                 'type' => 'warranty',
