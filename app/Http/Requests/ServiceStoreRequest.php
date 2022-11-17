@@ -14,10 +14,10 @@ class ServiceStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'string|required|max:255',
-            'deadline' => 'integer|required',
-            'cost' => 'numeric|required',
-            'category' => 'string|required|max:255',
+            'type' => ['string', 'required', 'max:255'],
+            'deadline' => ['integer', 'required'],
+            'cost' => ['numeric', 'required'],
+            'category' => ['string', 'required', 'max:255'],
         ];
     }
 }

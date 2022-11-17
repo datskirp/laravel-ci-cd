@@ -14,11 +14,11 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required|max:255',
-            'manufacturer' => 'string|required|max:255',
-            'release' => 'date|required',
-            'cost' => 'numeric|required',
-            'category' => 'string|required|max:255',
+            'name' => ['string', 'required', 'max:255'],
+            'manufacturer' => ['string', 'required', 'max:255'],
+            'release' => ['date', 'required'],
+            'cost' => ['numeric', 'required'],
+            'category' => ['string', 'required', 'max:255'],
         ];
     }
 }

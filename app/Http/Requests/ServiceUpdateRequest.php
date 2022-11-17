@@ -14,11 +14,11 @@ class ServiceUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer',
-            'type' => 'string|required|max:255',
-            'deadline' => 'integer|required',
-            'cost' => 'numeric|required',
-            'category' => 'string|required|max:255',
+            'id' => ['integer'],
+            'type' => ['string', 'required', 'max:255'],
+            'deadline' => ['integer', 'required'],
+            'cost' => ['numeric', 'required'],
+            'category' => ['string', 'required', 'max:255'],
         ];
     }
 }
