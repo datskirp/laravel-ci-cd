@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Http\Requests;
 
-use App\Http\Requests\ProductFormRequest;
+use App\Http\Requests\ProductStoreRequest;
 use PHPUnit\Framework\TestCase;
 
-class ProductFormRequestTest extends TestCase
+class ProductStoreRequestTest extends TestCase
 {
     public function test_contains_valid_rules()
     {
-        $r = new ProductFormRequest();
+        $r = new ProductStoreRequest();
 
         $this->assertEquals([
             'name' => 'string|required|max:255',

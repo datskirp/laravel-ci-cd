@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    //use HasFactory;
-
     public $product;
     public $services = [];
 
@@ -29,12 +26,13 @@ class Card extends Model
 
     public function getTotalPrice()
     {
-        $total = 0;
+        $servicesPrice = 0;
         if ($this->services) {
             foreach ($this->services as $service) {
-                $total += $service->cost;
+                $servicesPrice += $service->cost;
             }
         }
-        return $this->product->cost + $total;
+
+        return $this->product->cost + $servicesPrice;
     }
 }

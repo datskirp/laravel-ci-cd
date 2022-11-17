@@ -29,14 +29,12 @@ class CatalogController extends Controller
 
     /**
      * @param Request $request
-     * @param Card $card
-     * @param int $id
+     * @param Card    $card
+     * @param int     $id
      */
     public function card(Request $request, Card $card, $id)
     {
-        if (!$product = $this->product->firstWhere('id', $id)) {
-            abort(404);
-        }
+        $product = $this->product->where('id', $id)->firstOrFail();
         $card->addProduct($product);
         $request->session()->put('card', $card);
 
@@ -48,14 +46,12 @@ class CatalogController extends Controller
 
     /**
      * @param Request $request
-     * @param int $serviceId
+     * @param int     $serviceId
      */
-    public function addService(Request $request, $serviceId)
+    public function addService($serviceId)
     {
-        $card = $request->session()->get('card');
-        if (!$service = $this->services->firstWhere('id', $serviceId)) {
-            abort(404);
-        }
+        $card = session('card');
+        $service = $this->services->where('id', $serviceId)->firstOrFail();
         $card->addService($service);
 
         return view('card', [
@@ -66,14 +62,12 @@ class CatalogController extends Controller
 
     /**
      * @param Request $request
-     * @param int $serviceId
+     * @param int     $serviceId
      */
-    public function removeService(Request $request, $serviceId)
+    public function removeService($serviceId)
     {
-        $card = $request->session()->get('card');
-        if (!$service = $this->services->firstWhere('id', $serviceId)) {
-            abort(404);
-        }
+        $card = session('card');
+        $service = $this->services->where('id', $serviceId)->firstOrFail();
         $card->removeService($service);
 
         return view('card', [

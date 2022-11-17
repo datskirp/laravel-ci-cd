@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductFormRequest;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -24,7 +25,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductFormRequest $request, Product $product)
+    public function store(ProductStoreRequest $request, Product $product)
     {
         $validated = $request->validated();
         $product->fill($validated)->save();
@@ -35,13 +36,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Product $product
+     * @param \App\Models\Product $products
      */
-    public function edit(Product $product, $id)
+    public function edit(Product $products, $id)
     {
-        if (!$product = $product->firstWhere('id', $id)) {
-            abort(404);
-        }
+        $product = $products->where('id', $id)->firstOrFail();
+
         return view('edit-product', [
             'product' => $product,
         ]);
@@ -54,26 +54,35 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductFormRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $validated = $request->validated();
-        $product->where('id', $request->input('id'))->update($validated);
+        $product->where('id', $validated['id'])->update($validated);
 
-        return redirect('/admin')->with('success', sprintf('Product with id: %s was updated', $request->input('id')));
+        return redirect(route('admin.products.index'))->with(
+            'success',
+            sprintf(
+                'Product with id: %s was updated',
+                $request->input('id')
+            )
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Product $product
+     * @param \App\Models\Product $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product, $id)
+    public function destroy(Product $products, $id)
     {
-        if (!$product->firstWhere('id', $id)->delete()) {
-            abort(404);
-        }
+        $products->where('id', $id)->firstOrFail()->delete();
 
-        return back()->with('success', sprintf('Product with id: %s was deleted', $id));
+        return back()->with(
+            'success',
+            sprintf(
+                'Product with id: %s was deleted',
+                $id)
+        );
     }
 }

@@ -21,7 +21,7 @@ class ServiceControllerTest extends TestCase
         $this->seed();
         $service = Service::limit(1)->get()[0];
         $id = $service->id;
-        $response = $this->get(route('service.edit', $id));
+        $response = $this->get(route('services.edit', $id));
         $response->assertStatus(200);
         $response->assertViewIs('edit-service');
         $response->assertViewHas('service', function ($value) use ($id) {
@@ -33,13 +33,13 @@ class ServiceControllerTest extends TestCase
     {
         $this->seed();
         $id = 0;
-        $response = $this->get(route('service.edit', $id));
+        $response = $this->get(route('services.edit', $id));
         $response->assertStatus(404);
     }
 
     public function test_can_store_valid_service()
     {
-        $response = $this->post(route('service.store', [
+        $response = $this->post(route('services.store', [
             'type' => 'warranty',
             'deadline' => 365,
             'cost' => 40,
@@ -52,12 +52,12 @@ class ServiceControllerTest extends TestCase
             'cost' => 40,
             'category' => 'Laptops',
         ]);
-        $response->assertRedirect('/admin');
+        $response->assertRedirect('/admin/services');
     }
 
     public function test_cannot_create_service_with_non_valid_data()
     {
-        $this->post(route('service.store', [
+        $this->post(route('services.store', [
             'type' => '',
             'deadline' => 'wef',
             'cost' => 'adsf',
@@ -86,7 +86,7 @@ class ServiceControllerTest extends TestCase
             'cost' => 20,
             'category' => 'Laptops',
         ]);
-        $response->assertRedirect('/admin');
+        $response->assertRedirect('/admin/services');
     }
 
     public function test_if_deleted()
@@ -94,7 +94,7 @@ class ServiceControllerTest extends TestCase
         $this->seed();
         $service = Service::limit(1)->get()[0];
         $id = $service->id;
-        $this->delete(route('services.delete', $id));
+        $this->delete(route('services.destroy', $id));
         $this->assertDatabaseMissing('services', ['id' => $id]);
     }
 

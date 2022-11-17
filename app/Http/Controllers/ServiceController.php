@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ServiceFormRequest;
+use App\Http\Requests\ServiceStoreRequest;
+use App\Http\Requests\ServiceUpdateRequest;
 use App\Models\Service;
 
 class ServiceController extends Controller
@@ -24,24 +25,23 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceFormRequest $request, Service $service)
+    public function store(ServiceStoreRequest $request, Service $service)
     {
         $validated = $request->validated();
         $service->fill($validated)->save();
 
-        return redirect('/admin')->with('success', 'Service was created');
+        return redirect(route('admin.services.index'))->with('success', 'Service was created');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Service $service
+     * @param \App\Models\Service $services
      */
-    public function edit(Service $service, $id)
+    public function edit(Service $services, $id)
     {
-        if (!$service = $service->firstWhere('id', $id)) {
-            abort(404);
-        }
+        $service = $services->where('id', $id)->firstOrFail();
+
         return view('edit-service', [
             'service' => $service,
         ]);
@@ -51,28 +51,39 @@ class ServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Service $service
+     * @param \App\Models\Service      $service
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(ServiceFormRequest $request, Service $service)
+    public function update(ServiceUpdateRequest $request, Service $service)
     {
         $validated = $request->validated();
-        $service->where('id', $request->input('id'))->update($validated);
+        $service->where('id', $validated['id'])->update($validated);
 
-        return redirect('/admin')->with('success', sprintf('Service with id: %s was updated', $request->input('id')));
+        return redirect(route('admin.services.index'))->with(
+            'success',
+            sprintf(
+                'Service with id: %s was updated',
+                $request->input('id'),
+            )
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Service $service
+     * @param \App\Models\Service $services
      */
-    public function destroy(Service $service, $id)
+    public function destroy(Service $services, $id)
     {
-        if (!$service->firstWhere('id', $id)->delete()) {
-            abort(404);
-        }
+        $services->where('id', $id)->firstOrFail()->delete();
 
-        return back()->with('success', sprintf('Service with id: %s was deleted', $id));
+        return redirect(route('admin.services.index'))->with(
+            'success',
+            sprintf(
+                'Service with id: %s was deleted',
+                $id,
+            )
+        );
     }
 }

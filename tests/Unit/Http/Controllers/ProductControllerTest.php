@@ -22,7 +22,7 @@ class ProductControllerTest extends TestCase
         $this->seed();
         $product = Product::limit(1)->get()[0];
         $id = $product->id;
-        $response = $this->get(route('product.edit', $id));
+        $response = $this->get(route('products.edit', $id));
         $response->assertStatus(200);
         $response->assertViewIs('edit-product');
         $response->assertViewHas('product', function ($value) use ($id) {
@@ -34,13 +34,13 @@ class ProductControllerTest extends TestCase
     {
         $this->seed();
         $id = 0;
-        $response = $this->get(route('product.edit', $id));
+        $response = $this->get(route('products.edit', $id));
         $response->assertStatus(404);
     }
 
     public function test_can_store_valid_product()
     {
-        $response = $this->post(route('product.store', [
+        $response = $this->post(route('products.store', [
             'name' => 'ZX-493',
             'manufacturer' => 'Asus',
             'release' => '2021-03-21',
@@ -60,7 +60,7 @@ class ProductControllerTest extends TestCase
 
     public function test_cannot_create_product_with_non_valid_data()
     {
-        $this->post(route('product.store', [
+        $this->post(route('products.store', [
             'name' => '',
             'manufacturer' => 'manufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturermanufacturer',
             'release' => 'hnhgy',
@@ -92,7 +92,7 @@ class ProductControllerTest extends TestCase
             'cost' => 1800,
             'category' => 'Laptops',
         ]);
-        $response->assertRedirect('/admin');
+        $response->assertRedirect('/admin/products');
     }
 
     public function test_if_deleted()
@@ -100,7 +100,7 @@ class ProductControllerTest extends TestCase
         $this->seed();
         $product = Product::limit(1)->get()[0];
         $id = $product->id;
-        $this->delete(route('products.delete', $id));
+        $this->delete(route('products.destroy', $id));
         $this->assertDatabaseMissing('products', ['id' => $id]);
     }
 
