@@ -17,7 +17,7 @@ class ServiceUpdateRequest extends FormRequest
             'id' => ['integer'],
             'type' => ['string', 'required', 'max:255'],
             'deadline' => ['integer', 'required'],
-            'cost' => ['numeric', 'required'],
+            'cost' => ['numeric', 'required', 'min:0'],
             'category' => ['string', 'required', 'max:255'],
         ];
     }

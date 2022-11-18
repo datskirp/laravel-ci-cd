@@ -19,7 +19,7 @@ class ProductUpdateRequest extends FormRequest
             'name' => ['string', 'required', 'max:255'],
             'manufacturer' => ['string', 'required', 'max:255'],
             'release' => ['date', 'required'],
-            'cost' => ['numeric', 'required'],
+            'cost' => ['numeric', 'required', 'min:0'],
             'category' => ['string', 'required', 'max:255'],
         ];
     }
