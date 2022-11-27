@@ -16,9 +16,5 @@ jobs:
           cp .env.ci .env
           php artisan key:generate
           php artisan migrate
-      - name: Install front-end dependencies
-        run: |
-          npm install
-          LARAVEL_BYPASS_ENV_CHECK=1 npm run dev
       - name: Run Testsuite
         run: vendor/bin/phpunit tests/
