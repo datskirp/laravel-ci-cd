@@ -221,3 +221,4 @@
 2022-11-26T15:19:23.927  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2 => 404
 2022-11-26T15:19:30.930  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ec2/instances
 2022-11-26T15:19:30.931  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2/instances => 404
+2022-11-27T12:54:28.270  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS ec2.DescribeInstances => 200
