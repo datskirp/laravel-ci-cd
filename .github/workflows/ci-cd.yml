@@ -17,4 +17,4 @@ jobs:
           php artisan key:generate
           php artisan migrate
       - name: Run Testsuite
-        run: vendor/bin/phpunit tests/
+        run: vendor/bin/phpunit
