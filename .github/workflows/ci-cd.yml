@@ -31,6 +31,6 @@ jobs:
     steps:
       - name: Configure localstack
         run: |
-          aws s3 mb s3://task15 --endpoint-url=http://localhost:4566
+          aws s3 mb s3://task15 --endpoint-url=http://0.0.0.0:4566
 
 
