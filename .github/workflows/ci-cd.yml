@@ -37,13 +37,13 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-      steps:
-        - uses: actions/checkout@v2
-        - name: spawn queue
-          run: aws s3api create-bucket --bucket task15 --endpoint http://localhost:4566
-          env:
-            AWS_ACCESS_KEY_ID: itsafakeid
-            AWS_SECRET_ACCESS_KEY: itsafakekey
-            AWS_DEFAULT_REGION: "eu-west-1"
+    steps:
+      - uses: actions/checkout@v2
+      - name: spawn queue
+        run: aws s3api create-bucket --bucket task15 --endpoint http://localhost:4566
+        env:
+          AWS_ACCESS_KEY_ID: itsafakeid
+          AWS_SECRET_ACCESS_KEY: itsafakekey
+          AWS_DEFAULT_REGION: "eu-west-1"
 
 
