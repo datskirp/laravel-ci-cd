@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: spawn queue
-        run: aws s3api create-bucket --bucket task15 --endpoint http://localhost:4566
+        run: aws s3api create-bucket --bucket task15 --endpoint http://localhost:4566 --region us-west-1
         env:
           AWS_ACCESS_KEY_ID: itsafakeid
           AWS_SECRET_ACCESS_KEY: itsafakekey
