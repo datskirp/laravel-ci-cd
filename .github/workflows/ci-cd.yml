@@ -31,14 +31,14 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: localstack/localstack:latest
-          options: -v ${{ github.workspace }}:/opt/code/localstack/project -p 127.0.0.1:4566:4566
+          options: -v ${{ github.workspace }}:/opt/code/localstack/project -p 4566:4566
           run: |
             ls -la
-            awslocal s3 mb s3://task15
-            awslocal s3 ./project s3://task15
-            awslocal ec2 run-instances --image-id ami-05f3141013eebdc12 --count 1 --instance-type t2.micro
-            awslocal ec2 describe-instances
+            #awslocal s3 mb s3://task15
+            #awslocal s3 ./project s3://task15
+            #awslocal ec2 run-instances --image-id ami-05f3141013eebdc12 --count 1 --instance-type t2.micro
+            awslocal ec2 describe-images
       - name: Run some Tests against LocalStack
-        run: curl localhost:4566/task15
+        run: curl http://localhost:4566/task15
 
 
