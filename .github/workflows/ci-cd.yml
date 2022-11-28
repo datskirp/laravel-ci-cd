@@ -27,7 +27,8 @@ jobs:
     services:
       localstack:
         image: localstack/localstack
-        volumes: ${{ github.workspace }}:/opt/code/localstack/project
+        env:
+          volumes: ${{ github.workspace }}:/opt/code/localstack/project
         ports: [ "4566:4566" ]
     steps:
       - name: Configure localstack
