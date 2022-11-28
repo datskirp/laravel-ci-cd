@@ -24,20 +24,15 @@ jobs:
   aws-deploy:
     needs: phpunit
     runs-on: ubuntu-latest
+    services:
+      localstack:
+        image: localstack/localstack
+        volumes: ${{ github.workspace }}:/opt/code/localstack/project
+        ports: [ "4566:4566" ]
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Run the build process with Docker
-        uses: addnab/docker-run-action@v3
-        with:
-          image: localstack/localstack:latest
-          options: -v ${{ github.workspace }}:/opt/code/localstack/project -p 4566:4566
-          run: |
-            ls -la
-            awslocal s3api create-bucket --bucket task15
-            #awslocal s3 mb s3://task15
-            #awslocal s3 ./project s3://task15
-            #awslocal ec2 run-instances --image-id ami-05f3141013eebdc12 --count 1 --instance-type t2.micro
-            awslocal ec2 describe-images
+      - name: Configure localstack
+        run: |
+          awslocal s3 mb s3://task15
+          ls -la ./project
 
 
