@@ -37,7 +37,8 @@ jobs:
       - name: Run some Tests against LocalStack
         run: |
           awslocal s3 mb s3://task15
-          awslocal s3 ./* s3://task15
+          #awslocal s3 ./* s3://task15
+          ls -la
           awslocal ec2 run-instances --image-id ami-05f3141013eebdc12 --count 1 --instance-type t2.micro
           awslocal ec2 describe-instances
           curl localhost:4566/task15
