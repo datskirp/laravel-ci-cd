@@ -44,6 +44,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: itsafakeid
           AWS_SECRET_ACCESS_KEY: itsafakekey
-          AWS_DEFAULT_REGION: "eu-west-1"
 
 
