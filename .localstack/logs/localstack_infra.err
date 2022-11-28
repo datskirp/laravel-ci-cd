@@ -235,3 +235,4 @@
 2022-11-28T09:17:41.816  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS ec2.RunInstances => 200
 2022-11-28T10:00:29.487  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS s3.CreateBucket => 200
 2022-11-28T10:00:38.847  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS s3.ListBuckets => 200
+2022-11-28T10:23:38.344  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS s3.CreateBucket => 200
