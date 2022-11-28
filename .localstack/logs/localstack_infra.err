@@ -222,3 +222,14 @@
 2022-11-26T15:19:30.930  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ec2/instances
 2022-11-26T15:19:30.931  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2/instances => 404
 2022-11-27T12:54:28.270  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS ec2.DescribeInstances => 200
+2022-11-28T09:11:49.255  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ec2/instances
+2022-11-28T09:11:49.258  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2/instances => 404
+2022-11-28T09:11:59.071  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ec2/
+2022-11-28T09:11:59.071  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2/ => 404
+2022-11-28T09:12:30.019  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ec2/ip-10-89-51-201.ec2.internal
+2022-11-28T09:12:30.020  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ec2/ip-10-89-51-201.ec2.internal => 404
+2022-11-28T09:12:39.947  WARN --- [   asgi_gw_0] l.aws.handlers.internal    : Unable to find resource handler for path: /_localstack/ip-10-89-51-201.ec2.internal
+2022-11-28T09:12:39.948  INFO --- [   asgi_gw_0] localstack.request.http    : GET /_localstack/ip-10-89-51-201.ec2.internal => 404
+2022-11-28T09:12:49.542  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS s3.ListObjects => 404 (NoSuchBucket)
+2022-11-28T09:12:49.724  INFO --- [   asgi_gw_1] localstack.request.aws     : AWS s3.ListObjects => 404 (404)
+2022-11-28T09:17:41.816  INFO --- [   asgi_gw_0] localstack.request.aws     : AWS ec2.RunInstances => 200
