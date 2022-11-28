@@ -27,13 +27,11 @@ jobs:
     services:
       localstack:
         image: localstack/localstack
-        env:
-          volumes: ${{ github.workspace }}:/opt/code/localstack/project
         ports: [ "4566:4566" ]
     steps:
       - name: Configure localstack
         run: |
-          awslocal s3 mb s3://task15
-          ls -la ./project
+          aws mb s3://task15 --endpoint-url=http://localhost:4566
+          curl localhost:4566/health
 
 
