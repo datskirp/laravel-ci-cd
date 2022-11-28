@@ -27,10 +27,23 @@ jobs:
     services:
       localstack:
         image: localstack/localstack
-        ports: [ "4566:4566" ]
-    steps:
-      - name: Configure localstack
-        run: |
-          aws s3 mb s3://task15 --endpoint-url=http://0.0.0.0:4566
+        ports:
+          - 4566:4566
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock
+        options: >-
+          --name=localstack
+          --health-cmd="curl -sS 127.0.0.1:4566 || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+      steps:
+        - uses: actions/checkout@v2
+        - name: spawn queue
+          run: aws s3api create-bucket --bucket task15 --endpoint http://localhost:4566
+          env:
+            AWS_ACCESS_KEY_ID: itsafakeid
+            AWS_SECRET_ACCESS_KEY: itsafakekey
+            AWS_DEFAULT_REGION: "eu-west-1"
 
 
