@@ -31,8 +31,6 @@ jobs:
           - 4566:4566
         env:
           DOCKER_HOST: unix:///var/run/docker.sock
-        volumes:
-          - ${{ github.workspace }}/bootstrap-localstack:/docker-entrypoint-initaws.d/
         options: >-
           --name=localstack
           --health-cmd="curl -sS 127.0.0.1:4566 || exit 1"
@@ -41,13 +39,15 @@ jobs:
           --health-retries=3
     steps:
       - uses: actions/checkout@v2
-      - name: spawn queue
+      - name: aws_deploy
         run: |
           curl http://localhost:4566/health
           aws s3 mb s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
           aws s3 cp .env.example s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
           aws s3 ls s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
+          aws ec2 run-instances --image-id ami-0266bbea3330d8d4d --instance-type t2.micro --endpoint-url http://localhost:4566 --region us-west-1
           aws ec2 describe-instances --endpoint-url http://localhost:4566 --region us-west-1
+
         env:
           AWS_ACCESS_KEY_ID: itsafakeid
           AWS_SECRET_ACCESS_KEY: itsafakekey
