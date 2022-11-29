@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: spawn queue
         run: |
-          aws s3 cp ${{ github.workspace }} s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
+          aws s3 cp .env.example s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
           aws s3 ls s3://task15 --endpoint-url http://localhost:4566 --region us-west-1
         env:
           AWS_ACCESS_KEY_ID: itsafakeid
